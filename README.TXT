@@ -1,13 +1,13 @@
-##**Harward CS50’s Web Programming with Python and JavaScript**
+## **Harward CS50’s Web Programming with Python and JavaScript**
 
 *eBay-like e-commerce auction site that will allow users to post auction listings, place bids on listings, comment on those listings, and add listings to a “watchlist.”*
 
-###**Dependencies**
+### **Dependencies**
 ============
 1. install Pillow package for ImageFiled support (https://pillow.readthedocs.io/en/latest/)
 2. Install django-cleanup package for automatic images cleanup (https://pypi.org/project/django-cleanup/)
 
-###**DRequirements**
+### **DRequirements**
 ============
 
 Complete the implementation of your auction site. You must fulfill the following requirements:
