@@ -1,0 +1,168 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <div class="display-listing-page">
+        <!-- Messages section -->
+        {% if success_message %}
+            <div class="success_msg">{{ success_message }}</div>
+        {% endif %}
+        {% if error_message %}
+            <div class="error_msg">{{ error_message }}</div>
+        {% endif %}
+        {% if winner_message %}
+             <div class="winner_msg">{{ winner_message }}</div>
+         {% endif %}
+
+        <!-- Listing info section -->
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12 position-relative image-box text-center">
+                {% if listing.image %}
+                    <img src="{{ listing.image.url }}" alt="listing image" class="card-img-top listing-image p-2 ">
+                {% else %}
+                    <img src="{% static 'auctions/no-photo.png' %}" alt="listing image" class="card-img-top listing-image p-2">
+                {% endif %}
+                {% if is_watched %}
+                   <span class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger fs-6">Watched</span>
+                {% endif %}
+                {% if not listing.is_active %}
+                     <div class="badge bg-success text-white fs-1 border border-3 rounded-pill shadow-lg sold-badge">SOLD</div>
+                {% endif %}
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <H3 class="listing_title">{{listing.title|capfirst}}</H3>
+                <p class="listing-bid-text"> Category: {{listing.category}}</p>
+
+                {% if listing.is_active %} 
+                    <p class="listing-bid-text">Last bid: <span class="listing-bid-price item-price-text">USD {{listing.current_price|floatformat:"2g"}}</span> 
+                        {% if last_bid_time %}    
+                            put {{last_bid_time|timesince}} ago by 
+                            <span class="listing-bid-price item-price-text">{{last_bid_user}}</span>.
+                        {% endif %}
+                    </p>
+                {% else %}
+                    {% if winner.user == user%}
+                         <p class="listing-sold-text listing-bid-text">You won this item for 
+                            <span class="listing-sold-price listing-bid-price item-price-text">USD {{winner.price|floatformat:"2g"}}</span>.
+                        </p>
+                    {% else %}
+                        <p class="listing-sold-text listing-bid-text">The item was sold to <span class="listing-sold-price listing-bid-price item-price-text">{{winner.user}}</span> for 
+                            <span class="listing-sold-price listing-bid-price item-price-text">USD {{winner.price|floatformat:"2g"}}</span>.
+                        </p>
+                    {% endif %}
+                {% endif %}
+                
+                
+                <hr class="page-rooler">
+                <p class="tem-desc multiline text-wrap">{{ listing.description }}</p>
+                <p class="listing-bid-text">{{bids_count}} bids</p>
+                <p class="listing-bid-text">Added: <span class="item-added-bold">{{listing.creation_time|timesince}} ago</span> 
+                                            by <span class="item-added-bold">{{ listing.user.username }}</span></p>
+                <div class="active-check-box">
+                    {% if listing.is_active %}
+                        <input class="form-check-input" type="checkbox" value="" checked disabled>
+                    {% else %}
+                        <input class="form-check-input" type="checkbox" value="" disabled>
+                       
+                    {% endif %}
+
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Active
+                    </label>
+                </div>
+      
+                <hr class="page-rooler">
+                {% if user == listing.user %}
+                    <div class="mb-4 mt-4">
+                        
+                        {% if listing.is_active %}
+                            <a class="btn btn-light button-light" href="{% url 'edit_listing' listing.title %}">EDIT LISTING</a>
+                            <a class="btn btn-dark button-dark" href="{% url 'close_listing' listing.title %}">CLOSE LISTING</a>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="mb-4 mt-4">
+                        {% if not is_watched %}
+                            <a class="btn btn-light button-light" href="{% url 'add_to_watch' listing.title %}">ADD TO WATCH LIST</a>
+                        {% else %}
+                            <a class="btn btn-light button-light" href="{% url 'remove_from_watch' listing.title %}">REMOVE FROM WATCH LIST</a> 
+                        {% endif %}
+                        {% if listing.is_active %}
+                            <a class="btn btn-dark button-dark" href="{% url 'place_bid' listing.title %}">PLACE BID</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <hr class="page-rooler">
+
+    <!-- Comments section -->
+    <div class="d-flex row mb-5">
+        <div class="col-auto me-auto">
+            <h3 class="page_title"><i class="fa-regular fa-comment-dots nav-icon me-2"></i>Comments</h3>
+        </div>
+        <div class="col">
+            <a class="btn btn-outline-dark button-light btn-md ms-3" data-bs-toggle="modal" data-bs-target="#addCommentModalForm" >Leave Your Comment</a> 
+        </div>
+    </div>
+    {% for comment in comments %}
+        <div class="row mb-4 comments-list">
+            {% if comment.user == listing.user %}
+                <div class="col-lg-3 col-sm-12 col-xs-12">by <strong>{{comment.user}} (seller)</strong> ({{comment.creation_time|date:"d M Y" }} {{comment.creation_time|time:"H:i" }})</div>
+                <div class="col-lg-6 col-sm-12 col-xs-12 border-secondary rounded-1 border-1 multiline comment-box text-wrap">{{comment.text}}</div>
+            {% else %}
+                <div class="col-lg-2 col-sm-12 col-xs-12">by <strong>{{comment.user}}</strong> ({{comment.creation_time|date:"d M Y" }} {{comment.creation_time|time:"H:i" }})</div>
+                <div class="col-lg-7 col-sm-12 col-xs-12 border-success border-1 multiline comment-box text-wrap">{{comment.text}}</div>
+            {% endif %}
+        </div>
+    {% endfor %}            
+
+    <!-- Modal form -->
+    <div class="modal fade" id="addCommentModalForm" tabindex="-1" aria-labelledby="addCategoryLabel" aria-hidden="true" id="category_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add a new comment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                {% if user.is_authenticated %}
+                    <div class="modal-body" onload="set_modal_focus()">
+                        <form class="needs-validation" method="POST" action="{% url 'add_comment'%}">     
+                            {% csrf_token %}               
+                            <div class="mb-3 position-relative">
+                                <input type="hidden" id="user_id" name="user_id" value="{{ user.id }}">
+                                <input type="hidden" id="listing_title" name="listing_title" value="{{ listing.title }}">
+                                <div class="form-floating">
+                                    
+                                    <textarea type="textarea" style="height:100px;" class="form-control" id="comment_text" name="text" maxlength="1024" required></textarea>
+                                    <label for="comment_text">Place Your Comment Here</label>
+                                </div>
+                                <div class="invalid-tooltip">
+                                    Please enter a comment.
+                                </div>
+                            </div>
+                    
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            You are not signed-in.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='{% url 'login' %}'">Sign-In</button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

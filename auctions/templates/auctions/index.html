@@ -1,0 +1,49 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h2 class="page_title">{{title}}</h2>
+    {% if err_message %}
+        <div class="error_msg">{{ err_message }}</div>
+    {% endif %}
+
+    <section class="listing-section text-center">
+            <div class="row g-4">
+                {% for listing in listings %}
+                        <div class="col-lg-3 col-md-6 col-sm-8 col-12 listing-col">
+                            <div class="card  shadow border-bottom-0 border-end-0 rounded-5">
+                                <a href="{% url 'get_listing' listing.title %}" class="card-link">
+                                    {% if listing.image %}
+                                        <img src="{{ listing.image.url }}" alt="listing image" class="card-img-top listing-image p-2">
+                                    {% else %}
+                                        <img src="{% static 'auctions/no-photo.png' %}" alt="listing image" class="card-img-top listing-image p-2">
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <p class="card-title item-title">{{ listing.title|capfirst }}</p>
+                        
+                                        {% if listing.description|length >= 100 %}
+                                            <p class="card-text item-desc">{{ listing.description|truncatechars:100}}</p>
+                                        {% else %}
+                                            <p class="card-text item-desc">{{ listing.description }}</p>
+                                        {% endif %}
+                                        <p class="card-text item-text">Category: <strong>{{ listing.category}}</strong></p>
+                                        {% if not listing.is_active %}
+                                            <p class="card-text item-text text-success">Sold for: <span class="item-price-text">USD{{listing.current_price|floatformat:"2g"}}</span></p>
+                                            <span class="position-absolute top-0 translate-middle badge rounded-pill bg-success text-white fs-4">SOLD</span>
+                                        {% else %}
+                                            <p class="card-text item-text">Last bid: <span class="item-price-text">USD{{listing.current_price|floatformat:"2g"}}</span></p>
+                                        {% endif %}
+                                        <p class="card-text item-added">Added: <span class="item-added-bold">{{listing.creation_time|timesince}} ago</span> 
+                                            by <span class="item-added-bold">{{ listing.user.username }}</span></p>
+                                    </div>
+                                </a>
+                            </div>    
+                        </div>
+                    
+                
+                {% endfor %}
+            </div>
+    </section>
+    
+    
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <H3 class="page_title">Place Your Bid</H3>
+    <H4 class="page_title">Listing: {{listing.title}}</H4>
+
+    {% if err_message %}
+        <div class="error_msg">{{ err_message }}</div>
+    {% endif %}
+
+    {% if success_message %}
+        <div class="success_msg">{{ success_message }}</div>
+    {% endif %}
+
+    <div class="custom_form container">
+        <form action="{% url 'place_bid' listing.title %}" method="post" class="form">
+            {% csrf_token %}
+
+            <input type="hidden" id="user" name="user_id" value="{{ user.id }}">
+            <div class="mb-3 row">
+                <label for="CurrentPrice" class= "col-sm-2 col-form-label col-form-label-sm">Current Price</label>
+                <div class="col-sm-6">
+                    <input class="form-control form-control-sm" type="number" name="current_price" id="CurrentPrice" value="{{listing.current_price}}" disabled>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="BidPrice" class= "col-sm-2 col-form-label col-form-label-sm">Your Bid <span class="asterisk">*</span></label>
+                <div class="col-sm-6">
+                    <input class="form-control form-control-sm" autofocus type="number" name="bid_price" id="BidPrice">
+                </div>
+            </div>
+           
+            <div class="row mb-4">
+                <div class="col-sm-6 offset-md-2">
+                    <input type="submit" class="btn btn-sm btn-outline-dark"  value="Submit" >
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

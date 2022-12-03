@@ -1,0 +1,72 @@
+{% extends "auctions/layout.html" %}
+
+
+{% block body %}
+
+    <H3 class="page_title">Registration form</H3>
+
+    {% if message %}
+        <div class="error_msg">{{ message }}</div>
+    {% endif %}
+
+    <div class="custom_form">
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+
+            <div class="mb-3 row">
+                <label for="InputUserName" class= "col-sm-2 col-form-label col-form-label-sm">Username <span class="asterisk">*</span></label>
+                <div class="col-sm-4">
+                    <input class="form-control form-control-sm" autofocus type="text" name="username" placeholder="Username *" id="InputUserName">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="InputEmail" class= "col-sm-2 col-form-label col-form-label-sm">Email Address <span class="asterisk">*</span></label>
+                <div class="col-sm-4">
+                    <input class="form-control form-control-sm" type="email" name="email" placeholder="Email Address *" id="InputEmail">
+                </div>           
+            </div>
+            <div class="mb-3 row">
+                <label for="inputPassword" class= "col-sm-2 col-form-label col-form-label-sm">Password <span class="asterisk">*</span></label>
+                <div class="col-sm-2">
+                    <input class="form-control form-control-sm" type="password" name="password" placeholder="Password *" id="InputPassword">
+                </div>
+                <div class="col-auto">
+                    <span id="passwordHelpInline" class="form-text">
+                        &nbsp;Must be at least 6 characters long.
+                    </span>
+                </div>
+            </div>
+             <div class="mb-3 row">
+                <label for="inputConfirmPassword" class= "col-sm-2 col-form-label col-form-label-sm">Confirm Password <span class="asterisk">*</span></label>
+                <div class="col-sm-2">
+                    <input class="form-control form-control-sm" type="password" name="confirmation" placeholder="Confirm Password *" id="inputConfirmPassword">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="InpuFirstName" class= "col-sm-2 col-form-label col-form-label-sm">First Name</label>
+                <div class="col-sm-4">
+                    <input class="form-control form-control-sm" autofocus type="text" name="first_name" placeholder="First Name" id="InpuFirstName">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="InpuLastName" class= "col-sm-2 col-form-label col-form-label-sm">Last Name</label>
+                <div class="col-sm-4">
+                    <input class="form-control form-control-sm" autofocus type="text" name="last_name" placeholder="Last Name" id="InpuLastName">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="InputImage" class= "col-sm-2 col-form-label col-form-label-sm">User Avatar Image</label>
+                <div class="col-sm-4">
+                    <input class="form-control form-control-sm" type="file" name="user_image" id="InputImage">
+                </div>
+            </div>
+            <div class="mb-4 mt-4">
+                <input class="btn btn-sm btn-outline-dark" type="submit" value="Register" placeholder="User Avatar">
+            </div>
+        </form>
+        Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+       
+    </div>
+    
+
+{% endblock %}

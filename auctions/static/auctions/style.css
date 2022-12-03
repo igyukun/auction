@@ -1,0 +1,313 @@
+body {
+    padding: 1rem 2rem;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #F1ECE5;
+}
+
+.main-page {
+    padding: 0 5vw;
+}
+
+
+/* =============== */
+/* Navbar          */
+
+.nav-container {
+    padding: 0 5% 0 5%;
+}
+
+.avatar-image {
+    border-radius: 50%;
+    width: 3rem;
+}
+
+.navbar-brand {
+    padding: 0;
+    position:absolute; 
+    left:50%; 
+    margin-left:-100px; 
+    display:block;
+}
+
+.nav-item {
+    vertical-align: middle;
+}
+
+.nav-icon {
+    margin-right: 5px;
+    color:rgb(240, 154, 97);
+}
+/* =============== */
+/*   Main Logo     */
+
+.main-logo {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-left: 10px;
+    color:chocolate
+}
+
+/* =============== */
+/*   BODY          */
+
+.add-listing-btn {
+    margin-top: 20px;
+}
+
+.error_msg {
+    color: red;
+    font-style: italic;
+    margin: 0 0 20px 10px ;
+    font-weight: bold;
+}
+
+.success_msg{
+    
+    color: rgb(34, 117, 52);
+    margin: 0 0 20px 10px ;
+    font-weight: bold;
+}
+
+.winner_message {
+    color: rgb(9, 50, 78);
+    margin: 0 0 20px 10px ;
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+.page_title {
+     margin: 0 0 50px 0;
+}
+
+.custom_form {
+    display: flexbox;
+    margin: 10px;
+}
+
+.asterisk {
+    color:red;
+    font-weight: bold;
+}
+
+.signed-user {
+    margin: 0 10px 0 0;
+}
+
+.nav-text {
+    vertical-align: center;
+    margin-left: 15px;
+}
+
+.container-fluid {
+    padding: 1% 0;
+}
+
+.color-bar {
+    background-color: #eed6d0;    
+}
+
+.page-rooler {
+    border: 2px inset rgb(245, 235, 235);
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.list_icon {
+    margin-right: 20px;
+}
+
+/* =============== */
+/* Listings section */
+
+.listing-section {
+    padding-right:1%;
+}
+
+.listing-col {
+    text-align: center;
+    
+}
+
+.card {
+    border-color: #f5d9d9;
+    border-width: 2px;
+    border-radius: 2%;
+    
+}
+
+.card-link {
+    text-decoration: unset;
+    color: unset;
+}
+
+.card-link:hover {
+    text-decoration: unset;
+    color: unset;
+}
+
+.card-img-top {
+    width: 80%;
+    height: 20rem;
+    min-width: 50px;
+    min-height: 50px;
+    object-fit:scale-down;
+}
+
+.listing-image {
+    padding: 5px;
+    border-radius: 20%;
+}   
+
+.listing-image-small {
+    padding: 5px;
+    border-radius: 20%;
+    width: 150px;
+    height: 150px;
+}
+
+
+
+.card-title {
+    height: 4rem;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+
+.item-desc {
+    height: 70px;
+    text-align: left;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+}
+
+.item-text {
+    height:30px;
+    text-align: left;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.item-price-text {
+   font-weight: bold; 
+}
+
+.item-added {
+    height:30px;
+    font-size: 0.8rem;
+    text-align: left;
+}
+
+.item-added-bold {
+   
+    font-weight: bold;
+}
+
+.form-control:focus, .form-select:focus {
+  color: #212529;
+  background-color: #fff;
+  border-color: #eea385;
+  border-width: 1px;
+  outline: 0;
+  box-shadow: 0 0 0 0.05rem rgba(25, 107, 54, 0.25);
+}
+
+select option:focus-within {
+    background-color: rgb(118, 167, 118);
+}
+  
+/* ============ */
+/* Listing page */
+.listing-bid-price {
+    font-size: 1rem;
+}
+
+.listing-bid-text {
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+.listing-sold-text {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    color:darkgreen;
+}
+
+.listing-sold-price {
+    font-size: 1.5rem;
+    color:darkgreen;
+}
+
+.multiline {
+     white-space:pre;
+}
+
+@media screen and (max-width: 767) {
+    .sold-badge {
+        transform: rotate(20deg);
+        position: absolute;
+        left: 50vw;
+        top: 10vh;
+    }
+}
+
+.sold-badge {
+    transform: rotate(20deg);
+    position: absolute;
+    left: 10vw;
+    top: 10vh;
+}
+
+.comment-box {
+    border-width: 1px;
+    border-style: hidden solid solid hidden;
+    padding: 3px 5px 3px 20px;
+    font-size: 0.9rem;
+}
+
+.comments-list{
+    font-size: 0.9rem;
+}
+
+
+/* ============ */
+/* Page footer  */
+.page-footer {
+    margin-top: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.footer-icon {
+  padding: 30px 5px 10px;
+}
+
+.copyright {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.coon-logo {
+    width: 4.5rem;
+    margin: 5px;
+    z-index: 1;
+    opacity: 25%;
+    position: relative;
+}
+
+.footer-content {
+    position: absolute;
+    z-index: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.button-light:hover {
+    border: solid 1px darkblue ;
+}
+
+.button-dark:hover {
+    background-color: darkblue;
+}

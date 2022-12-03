@@ -1,0 +1,74 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+
+{% block body %}
+
+    <H3 class="page_title">Edit Entry</H3>
+
+    {% if err_message %}
+        <div class="error_msg">{{ err_message }}</div>
+    {% endif %}
+
+    {% if success_message %}
+        <div class="success_msg">{{ success_message }}</div>
+    {% endif %}
+
+    <div class="custom_form container">
+        <form action="{% url 'edit_listing' listing.title %}" method="post" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+
+            <input type="hidden" id="user" name="user_id" value="{{ user.id }}">
+            <div class="mb-3 row">
+                <label for="ItemTitle" class= "col-sm-2 col-form-label col-form-label-sm">Listing Title <span class="asterisk">*</span></label>
+                <div class="col-sm-6">
+                    <input class="form-control form-control-sm" autofocus type="text" name="title" value="{{ listing.title }}" maxlength="100" id="ItemTitle">
+                </div>
+                <div class="col-auto">
+                    <span id="titleHelpInline" class="form-text">
+                        &nbsp;Up to 100 characters.
+                    </span>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="Description" class= "col-sm-2 col-form-label col-form-label-sm">Item Description</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control form-control-sm" type="textarea" rows="5" name="description" placeholder="" maxlength="1024" id="Description" >{{listing.description}}</textarea>
+                </div>   
+                <div class="col-auto">
+                    <span id="descriptionHelpInline" class="form-text">
+                        &nbsp;Up to 1024 characters.
+                    </span>
+                </div>        
+            </div>
+            <div class="mb-3 row">
+                {% if listing.image %}
+                    <img src="{{ listing.image.url }}" alt="listing image" class="card-img-top listing-image p-2">
+                {% else %}
+                    <img src="{% static 'auctions/no-photo.png' %}" alt="listing image" class="card-img-top listing-image p-2">
+                {% endif %}
+            </div>
+            <div class="mb-4 row">
+                <label for="categoriesList" class= "col-sm-2 col-form-label col-form-label-sm">Select Category <span class="asterisk">*</span></label>
+                <div class="col-sm-6">
+                    <select name="category" class="form-select" aria-label="Default select example">
+                        <option value="" selected>--Select listing category--</option>
+                        {% for category in categories %}
+                            {% if category == listing.category %}
+                                <option value="{{category.name}}" selected>{{category.name}}</option>
+                            {% else %}
+                                <option value="{{category.name}}">{{category.name}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+           
+            <div class="row mb-4">
+                <div class="col-sm-6 offset-md-2">
+                    <input type="submit" class="btn btn-sm btn-outline-dark"  value="Submit" >
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
