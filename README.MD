@@ -7,7 +7,7 @@
 1. install Pillow package for ImageFiled support (https://pillow.readthedocs.io/en/latest/)
 2. Install django-cleanup package for automatic images cleanup (https://pypi.org/project/django-cleanup/)
 
-### **DRequirements**
+### **Requirements**
 ============
 
 Complete the implementation of your auction site. You must fulfill the following requirements:
